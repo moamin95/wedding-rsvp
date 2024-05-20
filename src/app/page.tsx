@@ -1,12 +1,13 @@
+'use client';
+
 import Hero from "./components/Hero/Hero";
 import RsvpButton from "./components/RsvpButton/RsvpButton";
 
 export default function Home() {
   return (
     <>
-      <div className="flex min-h-screen flex-col mt-64 mb-3 items-center">
+      <div className="flex flex-col items-center justify-center min-h-screen">
         <Hero />
-        <RsvpButton/>
       </div>
     </>
   );

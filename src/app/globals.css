@@ -19,21 +19,9 @@
 }
 
 body {
-  margin: 0 auto; /* Center the content */
-  max-width: 375px; /* Set the maximum width you prefer */
-  height: 100vh; /* Optional: Makes the body take full viewport height */
-  overflow-x: hidden; /* Prevents horizontal scroll */
+  overflow-x: hidden;
   color: var(--text-black);
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-    background-image: url('/backsplash.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background: #ffffff;
 }
 
 @layer utilities {
@@ -48,7 +36,4 @@ body {
     color: rgb(200,173,128);
   }
 
-  .flex-adjust > *:not(:last-child) {
-    margin-right: 2.5rem;
-  }
 }
