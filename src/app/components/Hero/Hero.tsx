@@ -16,7 +16,7 @@ export default function Hero() {
         </div>
         <div>
           <p className={`${altaCaption.className} p-10`}>
-            At two o'clock in the afternoon, at the beautiful astoria world
+            At two oclock in the afternoon, at the beautiful astoria world
             manor in queens
           </p>
         </div>
