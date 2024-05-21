@@ -8,6 +8,9 @@ import localFont from "next/font/local";
 import { translations } from "../translations";
 
 const pangaia = localFont({ src: "../../../../public/PPPangaia-Medium.ttf" });
+const seasonsLight = localFont({
+  src: "../../../../public/TheSeasonsLight.ttf",
+});
 
 export default function Footer() {
   const container = useRef();
@@ -59,12 +62,15 @@ export default function Footer() {
 const Logos = ({ scrollProgress }) => {
   const y = useTransform(scrollProgress, [0, 1], [-700, 0]);
   return (
-    <div className="h-[100px] bg-black overflow-hidden py-40">
+    <div className="h-[100px] bg-black overflow-hidden">
       <motion.div
         style={{ y }}
-        className="h-full bg-black flex justify-center items-center"
+        className={` ${seasonsLight.className} 
+        tracking-wide uppercase text-[12px] text-left
+        h-full bg-black flex flex-col justify-center px-10 text-white`}
       >
-        {<CountDownTimer />}
+        <p>Astoria World Manor</p>
+        <p>Sunday, September 8th at 2 PM</p>
       </motion.div>
     </div>
   );

@@ -2,6 +2,7 @@
 
 import localFont from "next/font/local";
 import { translations } from "../translations";
+import CountDownTimer from "../Footer/CountDownTimer";
 
 const seasonLight = localFont({
   src: "../../../../public/TheSeasonsLight.ttf",
@@ -29,6 +30,9 @@ export default function Hero() {
               {translations.hero.location}
             </p>
           </div>
+        </div>
+        <div>
+          <CountDownTimer />
         </div>
       </div>
     </>

@@ -48,7 +48,7 @@ function CountDownTimer() {
       <div className="w-4/5 mx-auto flex justify-center">
         {Object.entries(timeLeft).map(([unit, value], index, array) => (
           <div key={unit} className="text-center">
-            <div className="flex items-center font-medium text-lg text-slate-50">
+            <div className="flex items-center font-medium text-lg">
               <div className="w-9 flex justify-center rounded text-lg p-2 mx-1">
                 <p>{Math.floor(value / 10)}</p>
                 <p>{value % 10}</p>
