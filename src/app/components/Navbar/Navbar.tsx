@@ -5,8 +5,12 @@ import Styles from "./navbar.module.scss";
 import { motion } from "framer-motion";
 import localFont from "next/font/local";
 
-const seasonsBold = localFont({ src: "../../../../public/theseasons-bd.otf" });
-const seasonsLight = localFont({ src: "../../../../public/theseasons-lt.otf" });
+const seasonsBold = localFont({
+  src: "../../../../public/TheSeasonsRegular.ttf",
+});
+const seasonsLight = localFont({
+  src: "../../../../public/TheSeasonsLight.ttf",
+});
 
 const Navbar = () => {
   const [burgerMenuActive, setBurgerMenuActive] = useState(false);
@@ -18,7 +22,7 @@ const Navbar = () => {
   const menuItems = [
     { id: 1, title: "home", path: "/" },
     { id: 2, title: "program", path: "/" },
-    { id: 3, title: "details", path: "/" },
+    { id: 3, title: "RSVP", path: "/" },
     { id: 4, title: "faqs", path: "/" },
   ];
 
@@ -63,9 +67,14 @@ const Navbar = () => {
       className={`${Styles.navbar} ${burgerMenuActive ? Styles.active : ""}`}
     >
       <div className={Styles.navigation}>
-
-        <button className={`${Styles.button} ${seasonsBold.className} text-3xl`}>
-          AP
+        <button
+          className={`${Styles.button} ${seasonsBold.className} text-3xl font-bold`}
+        >
+          <a
+            href={'/'}
+          >
+            AP
+          </a>
         </button>
         <div
           className={Styles.burgerMenuContainer}

@@ -118,6 +118,7 @@
     background-color: #000;
     transition: 0.75s height;
     height: 100vh;
+    z-index: 100;
 
     .navigation {
         .button {
