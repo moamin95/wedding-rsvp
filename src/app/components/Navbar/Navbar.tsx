@@ -70,11 +70,7 @@ const Navbar = () => {
         <button
           className={`${Styles.button} ${seasonsBold.className} text-3xl font-bold`}
         >
-          <a
-            href={'/'}
-          >
-            AP
-          </a>
+          <a href={"/"}>AP</a>
         </button>
         <div
           className={Styles.burgerMenuContainer}

@@ -59,7 +59,7 @@ export default function Footer() {
 const Logos = ({ scrollProgress }) => {
   const y = useTransform(scrollProgress, [0, 1], [-700, 0]);
   return (
-    <div className="h-[100px] bg-black overflow-hidden">
+    <div className="h-[100px] bg-black overflow-hidden py-40">
       <motion.div
         style={{ y }}
         className="h-full bg-black flex justify-center items-center"
