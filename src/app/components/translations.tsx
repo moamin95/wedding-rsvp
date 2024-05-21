@@ -1,14 +1,13 @@
 export const translations = {
     hero: {
-        headingCopy: 'together with our families we request the honour of your presence at the',
-        nikkah: 'Nikkah',
-        uniting: 'uniting',
-        alvi: 'Mo Amin',
-        prity: 'Prity Ahmed',
-        and: 'and',
-        inshallah: 'Insha\' Allah',
+        'heading': 'join us on',
+        'date': '09.08',
+        'location': 'At two oclock in the afternoon, at the beautiful astoria world manor in queens'
     },
     button: {
         rsvp: 'RSVP'
+    },
+    footer: {
+        path: 'Curabitur mattis efficitur velit'
     }
 }
