@@ -12,6 +12,8 @@ const seasonsLight = localFont({
   src: "../../../../public/TheSeasonsLight.ttf",
 });
 
+const pangaia = localFont({src: "../../../../public/PPPangaia-Medium.ttf"})
+
 const Navbar = () => {
   const [burgerMenuActive, setBurgerMenuActive] = useState(false);
 
@@ -21,8 +23,8 @@ const Navbar = () => {
 
   const menuItems = [
     { id: 1, title: "home", path: "/" },
+    { id: 3, title: "RSVP", path: "/rsvp" },
     { id: 2, title: "program", path: "/program" },
-    { id: 3, title: "RSVP", path: "/" },
     { id: 4, title: "faqs", path: "/" },
   ];
 
@@ -68,9 +70,9 @@ const Navbar = () => {
     >
       <div className={Styles.navigation}>
         <button
-          className={`${Styles.button} ${seasonsBold.className} text-3xl font-bold`}
+          className={`${Styles.button} ${pangaia.className} text-3xl font-bold`}
         >
-          <a href={"/"}>AP</a>
+          <a href={"/"}>0908</a>
         </button>
         <div
           className={Styles.burgerMenuContainer}
@@ -88,7 +90,7 @@ const Navbar = () => {
           {menuItems.map((item) => (
             <motion.li variants={listItemVariants} key={item.id}>
               <a
-                className={`${seasonsLight.className} text-sm tracking-wide uppercase`}
+                className={`${pangaia.className} text-sm tracking-wide uppercase`}
                 href={item.path}
               >
                 {item.title}

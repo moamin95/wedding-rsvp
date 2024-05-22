@@ -1,8 +1,8 @@
 export const translations = {
     hero: {
-        'heading': 'join us on',
-        'date': '09.08',
-        'location': 'At two oclock in the afternoon, at the beautiful astoria world manor in queens'
+        'heading': 'save the date',
+        'date': 'Sunday, September 8th',
+        'location': 'two oclock in the afternoon, at the beautiful astoria world manor in queens'
     },
     button: {
         rsvp: 'RSVP'
