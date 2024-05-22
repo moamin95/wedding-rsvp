@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroicons/react": "^2.1.3",
     "@studio-freight/lenis": "^1.0.42",
     "@vercel/postgres": "^0.8.0",
     "framer-motion": "^11.2.4",

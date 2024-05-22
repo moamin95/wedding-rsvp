@@ -62,7 +62,7 @@ export default function Footer() {
 const Logos = ({ scrollProgress }) => {
   const y = useTransform(scrollProgress, [0, 1], [-700, 0]);
   return (
-    <div className="h-[100px] bg-black overflow-hidden">
+    <div className="h-[250px] bg-black overflow-hidden">
       <motion.div
         style={{ y }}
         className={` ${seasonsLight.className} 

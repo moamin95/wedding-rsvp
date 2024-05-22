@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const menuItems = [
     { id: 1, title: "home", path: "/" },
-    { id: 2, title: "program", path: "/" },
+    { id: 2, title: "program", path: "/program" },
     { id: 3, title: "RSVP", path: "/" },
     { id: 4, title: "faqs", path: "/" },
   ];

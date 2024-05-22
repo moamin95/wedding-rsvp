@@ -12,10 +12,7 @@ const config: Config = {
         'gold': '#C8AD81',
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "hero-splash": "url('/duo.jpg')",
+        "hero-splash": "url('/duo1.png')",
       },
       backgroundSize: {
         'size-contain': 'contain',

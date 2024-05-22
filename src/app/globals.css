@@ -19,9 +19,13 @@
 }
 
 body {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
   overflow-x: hidden;
   color: var(--text-black);
-  background: #ffffff;
+  display: flex;
+  align-items: center;
 }
 
 @layer utilities {
@@ -33,7 +37,6 @@ body {
   }
 
   .text-gold-custom {
-    color: rgb(200,173,128);
+    color: rgb(200, 173, 128);
   }
-
 }
