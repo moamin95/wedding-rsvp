@@ -18,7 +18,6 @@ const seasonBold = localFont({
 const altaCaption = localFont({ src: "../../public/Alta_caption.otf" });
 
 export default function Home() {
-
   useEffect(() => {
     const lenis = new Lenis();
 
@@ -31,8 +30,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-screen text-center flex flex-col justify-center items-center">
-      <Hero/>
+    <div className="flex min-h-screen flex-col items-center justify-center gap-12 border border-black">
+      <Hero />
     </div>
   );
 }

@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer.jsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,16 +13,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body>
+      <body className={inter.className}>
         <Navbar />
         <main>{children}</main>
-        {/* <Footer /> */}
-        </body>
+      </body>
     </html>
   );
 }
