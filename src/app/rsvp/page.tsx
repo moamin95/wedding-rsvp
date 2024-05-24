@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import * as z from "zod";
+import { useRouter } from 'next/navigation';
+
 import { useForm, useWatch } from "react-hook-form";
 import localFont from "next/font/local";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Form,
   FormField,
@@ -32,7 +35,7 @@ const formSchema = z
   .object({
     name: z.string().min(1, "Name is required"),
     guests: z.number().nullable(),
-    songRequest: z.string().optional(),
+    songRequest: z.string().max(255).optional(),
     decline: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
@@ -52,6 +55,9 @@ const formSchema = z
   });
 
 export default function Rsvp() {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,6 +80,7 @@ export default function Rsvp() {
   }, [decline, form]);
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
     const payload = {
       guestName: values.name,
       guestCount: values.guests,
@@ -81,148 +88,158 @@ export default function Rsvp() {
       attending: !values.decline,
     };
     try {
-      const response = await fetch('/api/add-reservation', {
-        method: 'POST',
+      const response = await fetch("/api/add-reservation", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       const data = await response.json();
-      console.log('RSVP submitted successfully:', data);
+      console.log("RSVP submitted successfully:", data);
+      sessionStorage.setItem('guestName', values.name);
+      router.push(`/thankyou`);
     } catch (error) {
-      console.error('Error submitting RSVP:', error);
+      setIsLoading(false);
+      console.error("Error submitting RSVP:", error);
     }
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 text-white">
       <h1 className={`${pangaia.className} text-9xl`}>RSVP</h1>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-card text-card-foreground shadow-sm"
-        >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Name" type="name" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="guests"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Number of Guests</FormLabel>
-                  <FormControl>
-                    <Select
-                      disabled={decline}
-                      value={field.value !== null ? String(field.value) : ""}
-                      onValueChange={(value) => {
-                        field.onChange(Number(value));
+      {isLoading ? (
+        <div className="max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-card text-card-foreground shadow-sm">
+          <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
+          <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
+          <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
+          <Skeleton className="h-9 px-4 py-2" />
+        </div>
+      ) : (
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-card text-card-foreground shadow-sm"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Name" type="name" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="guests"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Number of Guests</FormLabel>
+                    <FormControl>
+                      <Select
+                        disabled={decline}
+                        value={field.value !== null ? String(field.value) : ""}
+                        onValueChange={(value) => {
+                          field.onChange(Number(value));
+                        }}
+                      >
+                        <SelectTrigger className="max-w-md w-full">
+                          <SelectValue placeholder="0">
+                            {field.value !== null
+                              ? String(field.value)
+                              : "Select number of guests"}
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {guestArray.map((count) => (
+                              <SelectItem key={count} value={count}>
+                                {count}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="songRequest"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Song Request</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="079me - B Young"
+                        type="text"
+                        disabled={decline}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name="decline"
+              render={({ field }) => {
+                return (
+                  <div className="items-top flex space-x-2">
+                    <Checkbox
+                      id="decline"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          event.preventDefault();
+                          field.onChange(!field.value);
+                        }
                       }}
-                    >
-                      <SelectTrigger className="max-w-md w-full">
-                        <SelectValue placeholder="0">
-                          {field.value !== null
-                            ? String(field.value)
-                            : "Select number of guests"}
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {guestArray.map((count) => (
-                            <SelectItem key={count} value={count}>
-                              {count}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="songRequest"
-            render={({ field }) => {
-              return (
-                <FormItem>
-                  <FormLabel>Song Request</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="079me - B Young"
-                      type="text"
-                      disabled={decline}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      disabled={field.disabled}
+                      name={field.name}
+                      ref={field.ref}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-          <FormField
-            control={form.control}
-            name="decline"
-            render={({ field }) => {
-              return (
-                <div className="items-top flex space-x-2">
-                  <Checkbox
-                    id="decline"
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter") {
-                        event.preventDefault();
-                        field.onChange(!field.value);
-                      }
-                    }}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    disabled={field.disabled}
-                    name={field.name}
-                    ref={field.ref}
-                  />
-                  <div className="grid gap-1.5 leading-none">
-                    <label
-                      htmlFor="decline"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Regretfully Decline 💔
-                    </label>
-                    <p className="text-sm text-muted-foreground">
-                      We would love to have you join us, but we understand!
-                    </p>
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="decline"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Regretfully Decline 💔
+                      </label>
+                      <p className="text-sm text-muted-foreground">
+                        We would love to have you join us, but we understand!
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            }}
-          />
-          <Button type="submit">
-            Submit
-          </Button>
-        </form>
-      </Form>
+                );
+              }}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </Form>
+      )}
     </main>
   );
 }
