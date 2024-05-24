@@ -73,8 +73,31 @@ export default function Rsvp() {
     }
   }, [decline, form]);
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log("submit values", values);
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    const payload = {
+      guestName: values.name,
+      guestCount: values.guests,
+      songRequest: values.songRequest,
+      attending: !values.decline,
+    };
+    try {
+      const response = await fetch('/api/add-reservation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('RSVP submitted successfully:', data);
+    } catch (error) {
+      console.error('Error submitting RSVP:', error);
+    }
   };
 
   return (
@@ -83,7 +106,7 @@ export default function Rsvp() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="max-w-md w-full flex flex-col gap-6 p-6 "
+          className="max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-card text-card-foreground shadow-sm"
         >
           <FormField
             control={form.control}
@@ -195,7 +218,7 @@ export default function Rsvp() {
               );
             }}
           />
-          <Button type="submit" className="w-full bg-white text-black hover:bg-slate-200">
+          <Button type="submit">
             Submit
           </Button>
         </form>
