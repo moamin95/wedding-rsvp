@@ -5,6 +5,7 @@ import Styles from "./navbar.module.scss";
 import { motion } from "framer-motion";
 import localFont from "next/font/local";
 
+
 const seasonsBold = localFont({
   src: "../../../../public/TheSeasonsRegular.ttf",
 });
@@ -13,6 +14,8 @@ const seasonsLight = localFont({
 });
 
 const pangaia = localFont({src: "../../../../public/PPPangaia-Medium.ttf"})
+
+
 
 const Navbar = () => {
   const [burgerMenuActive, setBurgerMenuActive] = useState(false);
@@ -72,7 +75,7 @@ const Navbar = () => {
         <button
           className={`${Styles.button} ${pangaia.className} text-3xl font-bold`}
         >
-          <a href={"/"}>0908</a>
+          <a href={"/"}>AP</a>
         </button>
         <div
           className={Styles.burgerMenuContainer}

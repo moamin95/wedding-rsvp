@@ -19,6 +19,8 @@ const config = {
     },
     extend: {
       colors: {
+        onyx: "#353935",
+        soft: "#F9F6EE",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

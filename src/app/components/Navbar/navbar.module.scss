@@ -1,158 +1,156 @@
 .navbar {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    padding: 0 10vw;
-    background-color: #fff;
-    height: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 10vw;
+  background-color: #fff;
+  height: 0;
+  position: absolute;
+  top: 0;
+  transition: 0.5s height;
+
+  .navigation {
     position: absolute;
     top: 0;
-    transition: 0.5s height;
+    width: calc(100% - 20vw);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0 0 0;
 
-    .navigation {
-        position: absolute;
-        top: 0;
-        width: calc(100% - 20vw);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 2rem 0 0 0;
-
-        .button {
-            background-color: transparent;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #fff;
-            transition: 0.5s color;
-        }
-
-        .burgerMenuContainer {
-            content: "";
-            width: 25px;
-            height: 25px;
-            position: relative;
-            right: 0;
-            cursor: pointer;
-
-            .burgerMenuTrigger {
-                content: "";
-                width: 25px;
-                height: 25px;
-                position: relative;
-                right: 0;
-                cursor: pointer;
-                z-index: 100;
-            }
-
-            .burgerMenu {
-                content: "";
-                background: #fff;
-                position: absolute;
-                width: 25px;
-                height: 2px;
-                z-index: 0;
-                top: calc(25px / 2 - 1.5px);
-                transition: 0.25s width ease-in-out,
-                    0.5s background-color ease-in-out;
-            }
-
-            .burgerMenu::after {
-                content: "";
-                background-color: #fff;
-                position: absolute;
-                width: 25px;
-                height: 2px;
-                transform: translateY(10px);
-                z-index: 0;
-                transition: 0.25s transform ease-in-out,
-                    0.5s background-color ease-in-out;
-            }
-
-            .burgerMenu::before {
-                content: "";
-                background-color: #fff;
-                position: absolute;
-                width: 25px;
-                height: 2px;
-                transform: translateY(-10px);
-                z-index: 0;
-                transition: 0.25s transform ease-in-out,
-                    0.5s background-color ease-in-out;
-            }
-
-            .burgerMenuTrigger:hover ~ .burgerMenu {
-                width: 25px;
-            }
-        }
+    .button {
+      background-color: transparent;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #353935;
+      transition: 0.5s color;
     }
 
-    .content {
+    .burgerMenuContainer {
+      content: "";
+      width: 25px;
+      height: 25px;
+      position: relative;
+      right: 0;
+      cursor: pointer;
+
+      .burgerMenuTrigger {
+        content: "";
+        width: 25px;
+        height: 25px;
+        position: relative;
+        right: 0;
+        cursor: pointer;
+        z-index: 100;
+      }
+
+      .burgerMenu {
+        content: "";
+        background: #353935;
         position: absolute;
-        top: 30vh;
-        display: none;
+        width: 25px;
+        height: 2px;
+        z-index: 0;
+        top: calc(25px / 2 - 1.5px);
+        transition: 0.25s width ease-in-out, 0.5s background-color ease-in-out;
+      }
 
-        ul {
-            list-style: none;
+      .burgerMenu::after {
+        content: "";
+        background-color: #353935;
+        position: absolute;
+        width: 25px;
+        height: 2px;
+        transform: translateY(10px);
+        z-index: 0;
+        transition: 0.25s transform ease-in-out,
+          0.5s background-color ease-in-out;
+      }
 
-            li {
-                padding: 1rem 0;
+      .burgerMenu::before {
+        content: "";
+        background-color: #353935;
+        position: absolute;
+        width: 25px;
+        height: 2px;
+        transform: translateY(-10px);
+        z-index: 0;
+        transition: 0.25s transform ease-in-out,
+          0.5s background-color ease-in-out;
+      }
 
-                a {
-                    font-size: 3rem;
-                    color: rgb(127, 127, 127);
-                    transition: 0.25s color;
-                }
-
-                a:hover {
-                    color: rgb(232, 232, 232);
-                    transition: 0.25s color;
-                }
-            }
-        }
+      .burgerMenuTrigger:hover ~ .burgerMenu {
+        width: 25px;
+      }
     }
+  }
+
+  .content {
+    position: absolute;
+    top: 30vh;
+    display: none;
+
+    ul {
+      list-style: none;
+
+      li {
+        padding: 1rem 0;
+
+        a {
+          font-size: 3rem;
+          color: rgb(127, 127, 127);
+          transition: 0.25s color;
+        }
+
+        a:hover {
+          color: rgb(232, 232, 232);
+          transition: 0.25s color;
+        }
+      }
+    }
+  }
 }
 
 .navbar.active {
-    background-color: #fff;
-    transition: 0.75s height;
-    height: 100vh;
-    z-index: 100;
+  background-color: #000;
+  transition: 0.75s height;
+  height: 100vh;
+  z-index: 100;
 
-    .navigation {
-        .button {
-            color: black;
-            transition: 0.5s color;
-        }
-        .burgerMenuContainer {
-            .burgerMenu {
-                width: 0;
-                background-color: black;
-                transition: 0.25s width ease-in-out,
-                    0.25s background-color ease-in-out;
-            }
-
-            .burgerMenu::after {
-                transform: translateY(0px) rotate(135deg);
-                background-color: black;
-                transition: 0.25s transform ease-in-out,
-                    0.25s background-color ease-in-out;
-            }
-
-            .burgerMenu::before {
-                transform: translateY(0px) rotate(-135deg);
-                background-color: black;
-                transition: 0.25s transform ease-in-out,
-                    0.25s background-color ease-in-out;
-            }
-
-            .burgerMenuTrigger:hover ~ .burgerMenu {
-                width: 0px;
-            }
-        }
+  .navigation {
+    .button {
+      color: #fff;
+      transition: 0.5s color;
     }
-    .content {
-        display: initial;
+    .burgerMenuContainer {
+      .burgerMenu {
+        width: 0;
+        background-color: #fff;
+        transition: 0.25s width ease-in-out, 0.25s background-color ease-in-out;
+      }
+
+      .burgerMenu::after {
+        transform: translateY(0px) rotate(135deg);
+        background-color: #fff;
+        transition: 0.25s transform ease-in-out,
+          0.25s background-color ease-in-out;
+      }
+
+      .burgerMenu::before {
+        transform: translateY(0px) rotate(-135deg);
+        background-color: #fff;
+        transition: 0.25s transform ease-in-out,
+          0.25s background-color ease-in-out;
+      }
+
+      .burgerMenuTrigger:hover ~ .burgerMenu {
+        width: 0px;
+      }
     }
+  }
+  .content {
+    display: initial;
+  }
 }
