@@ -122,7 +122,7 @@ export default function Home() {
           </a>
         </motion.p>
         <Button
-          className={`${altaCaption.className} text-lg mt-6 w-full`}
+          className={`${altaCaption.className} text-lg mt-6 mb-2 w-full`}
           onClick={handleClick}
         >
           RSVP
