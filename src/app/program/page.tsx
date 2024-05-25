@@ -1,38 +1,101 @@
 "use client";
 
 import localFont from "next/font/local";
-import { ClockIcon, SparklesIcon, CakeIcon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
 
 const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
+const script = localFont({ src: "../../../public/script.ttf" });
 
 const events = [
-  { time: "2:00 PM", title: "Ceremony", icon: <SparklesIcon className="h-6 w-6 text-onyx" /> },
-  { time: "3:00 PM", title: "Lunch Time", icon: <ClockIcon className="h-6 w-6 text-onyx" /> },
-  { time: "4:00 PM", title: "Reception", icon: <CakeIcon className="h-6 w-6 text-onyx" /> },
+  {
+    time: "2:00",
+    title: "Nikkah",
+    description: "Join us for the khutbah and nikkah.",
+    icon: "❤️",
+  },
+  {
+    time: "3:00",
+    title: "Pictures",
+    description: "Guests will take pictures with the bride and groom.",
+    icon: "📸",
+  },
+  {
+    time: "4:00",
+    title: "Lunch",
+    description: "Enjoy a succulent desi buffet with us.",
+    icon: "🍽️",
+  },
+  {
+    time: "5:00",
+    title: "Reception",
+    description: "Celebrate with us at the reception.",
+    icon: "🪩",
+  },
 ];
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.3,
+      duration: 0.5,
+    },
+  }),
+};
 
 export default function Page() {
   return (
-    <div className={`${pangaia.className} flex flex-col items-center text-onyx p-6`}>
-      <h1 className="text-4xl mb-6">Event Program</h1>
-      <div className="relative w-full">
-        <div className="border-l-2 border-gray-200 absolute h-full left-1/2 transform -translate-x-1/2"></div>
+    <div
+      className={`${pangaia.className} flex flex-col items-center text-onyx p-4`}
+    >
+      <h1 className="font-semibold text-6xl text-onyx uppercase">Program</h1>
+      <div className="relative w-full max-w-4xl mt-12 ">
+        <div className="border-l-2 border-black absolute h-full left-1/2 transform -translate-x-1/2"></div>
         {events.map((event, index) => (
-          <div key={index} className="mb-8 flex justify-between items-center w-full mx-auto">
-            <div className="w-5/12 text-right pr-4">
-              <p className="text-lg">{event.time}</p>
-            </div>
-            <div className="w-2/12 flex justify-center items-center">
-              <div className="bg-transparent rounded-full p-2 flex justify-center items-center">
-                {event.icon}
+          <motion.div
+            key={index}
+            custom={index}
+            initial="hidden"
+            animate="visible"
+            variants={itemVariants}
+            className={`mb-12 flex justify-between items-center w-full mx-auto ${
+              index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+            }`}
+          >
+            <div
+              className={`w-5/12 relative ${
+                index % 2 === 0 ? "text-right pr-4" : "text-left pl-4"
+              }`}
+            >
+              <div
+                className={`absolute top-1/2 transform -translate-y-1/2 ${
+                  index % 2 === 0 ? "right-[-33px]" : "left-[-33px]"
+                } w-6 `}
+              >
+                <span
+                  className={`absolute ${
+                    index % 2 === 0 ? "left-[10px]" : "right-[10px]"
+                  } bg-soft`}
+                >
+                  {event.time}
+                </span>
               </div>
+              <p className={` ${script.className} text-4xl font-semibold`}>
+                {event.title}
+              </p>
+              <p className="text-sm text-gray-500">{event.description}</p>
             </div>
-            <div className="w-5/12 pl-4">
-              <p className="text-lg">{event.title}</p>
-            </div>
-          </div>
+          </motion.div>
         ))}
       </div>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={itemVariants}
+        className="mt-4"
+      >💍</motion.div>
     </div>
   );
 }

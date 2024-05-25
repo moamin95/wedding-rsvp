@@ -53,7 +53,7 @@
   body {
     @apply font-sans antialiased;
     background-color: #F9F6EE;
-    margin-top: 150px;
+    margin-top: 100px;
   }
 
   @layer base {

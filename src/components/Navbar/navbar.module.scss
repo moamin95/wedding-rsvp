@@ -4,11 +4,12 @@
   justify-content: flex-start;
   width: 100%;
   padding: 0 10vw;
-  background-color: #fff;
+  background-color: #000;
   height: 0;
   position: absolute;
   top: 0;
   transition: 0.5s height;
+  z-index: 10;
 
   .navigation {
     position: absolute;

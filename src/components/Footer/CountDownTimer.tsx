@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import localFont from "next/font/local";
 
+
+
 interface CountdownTimeLeft {
   days?: number;
   hrs?: number;
@@ -9,7 +11,7 @@ interface CountdownTimeLeft {
   secs?: number;
 }
 
-const pangaia = localFont({ src: "../../../../public/PPPangaia-Medium.ttf" });
+const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
 const INITIAL_TIME_LEFT = { days: 0, hrs: 0, mins: 0, secs: 0 };
 
 function CountDownTimer() {
