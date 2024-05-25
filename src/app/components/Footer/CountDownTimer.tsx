@@ -49,7 +49,7 @@ function CountDownTimer() {
   return (
     <div className={`${pangaia.className} w-full grid place-items-center`}>
       {isMarried ? (
-        <div className="text-center font-medium text-lg">I'm a married man!</div>
+        <div className="text-center font-medium text-lg">I am a married man!</div>
       ) : (
         <div className="w-4/5 mx-auto flex justify-center">
           {Object.entries(timeLeft).map(([unit, value], index, array) => (
