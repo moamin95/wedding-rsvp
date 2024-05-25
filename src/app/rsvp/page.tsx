@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import * as z from "zod";
 import { useRouter } from 'next/navigation';
-
 import { useForm, useWatch } from "react-hook-form";
 import localFont from "next/font/local";
 import { Input } from "@/components/ui/input";
@@ -27,8 +26,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { motion } from "framer-motion";
 
+const season = localFont({ src: "../../../public/Alta_caption.otf" });
 const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
+const alta = localFont({ src: "../../../public/Alta_caption.otf" });
 const guestArray = Array.from({ length: 10 }, (_, i) => i.toString());
 
 const formSchema = z
@@ -110,134 +112,139 @@ export default function Rsvp() {
     }
   };
 
+  const formVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeInOut" } },
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-8 text-white">
-      <h1 className={`${pangaia.className} text-9xl`}>RSVP</h1>
+    <main className="flex max-h-screen flex-col items-center justify-center gap-5">
+      <h1 className={`${pangaia.className} font-semibold text-7xl text-onyx uppercase`}>RSVP</h1>
       {isLoading ? (
-        <div className="max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-card text-card-foreground shadow-sm">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={formVariants}
+          className={`max-w-sm w-full flex flex-col gap-6 p-6 rounded-xl border bg-card text-card-foreground shadow-sm`}
+        >
           <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
           <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
           <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
           <Skeleton className="h-9 px-4 py-2" />
-        </div>
+        </motion.div>
       ) : (
         <Form {...form}>
-          <form
+          <motion.form
+            initial="hidden"
+            animate="visible"
+            variants={formVariants}
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-card text-card-foreground shadow-sm"
+            className={`${pangaia.className} max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-white text-card-foreground shadow-sm transition-colors`}
           >
             <FormField
               control={form.control}
               name="name"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="Name" type="name" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Name" type="name" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
             <FormField
               control={form.control}
               name="guests"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel>Number of Guests</FormLabel>
-                    <FormControl>
-                      <Select
-                        disabled={decline}
-                        value={field.value !== null ? String(field.value) : ""}
-                        onValueChange={(value) => {
-                          field.onChange(Number(value));
-                        }}
-                      >
-                        <SelectTrigger className="max-w-md w-full">
-                          <SelectValue placeholder="0">
-                            {field.value !== null
-                              ? String(field.value)
-                              : "Select number of guests"}
-                          </SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            {guestArray.map((count) => (
-                              <SelectItem key={count} value={count}>
-                                {count}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Number of Guests</FormLabel>
+                  <FormControl>
+                    <Select
+                      disabled={decline}
+                      value={field.value !== null ? String(field.value) : ""}
+                      onValueChange={(value) => {
+                        field.onChange(Number(value));
+                      }}
+                    >
+                      <SelectTrigger className="max-w-md w-full">
+                        <SelectValue placeholder="0">
+                          {field.value !== null
+                            ? String(field.value)
+                            : "Select number of guests"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {guestArray.map((count) => (
+                            <SelectItem key={count} value={count}>
+                              {count}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
             <FormField
               control={form.control}
               name="songRequest"
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel>Song Request</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="079me - B Young"
-                        type="text"
-                        disabled={decline}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Song Request</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="079me - B Young"
+                      type="text"
+                      disabled={decline}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
             <FormField
               control={form.control}
               name="decline"
-              render={({ field }) => {
-                return (
-                  <div className="items-top flex space-x-2">
-                    <Checkbox
-                      id="decline"
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter") {
-                          event.preventDefault();
-                          field.onChange(!field.value);
-                        }
-                      }}
-                      onChange={field.onChange}
-                      onBlur={field.onBlur}
-                      disabled={field.disabled}
-                      name={field.name}
-                      ref={field.ref}
-                    />
-                    <div className="grid gap-1.5 leading-none">
-                      <label
-                        htmlFor="decline"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Regretfully Decline 💔
-                      </label>
-                      <p className="text-sm text-muted-foreground">
-                        We would love to have you join us, but we understand!
-                      </p>
-                    </div>
+              render={({ field }) => (
+                <div className="items-top flex space-x-2">
+                  <Checkbox
+                    id="decline"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        field.onChange(!field.value);
+                      }
+                    }}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    disabled={field.disabled}
+                    name={field.name}
+                    ref={field.ref}
+                  />
+                  <div className="grid gap-1.5 leading-none">
+                    <label
+                      htmlFor="decline"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Regretfully Decline 💔
+                    </label>
+                    <p className="text-sm text-muted-foreground">
+                      We would love to have you join us, but we understand!
+                    </p>
                   </div>
-                );
-              }}
+                </div>
+              )}
             />
-            <Button type="submit">Submit</Button>
-          </form>
+            <Button type="submit" className="mt-4">Submit</Button>
+          </motion.form>
         </Form>
       )}
     </main>
