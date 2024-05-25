@@ -1,29 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import Lenis from "lenis";
 import localFont from "next/font/local";
 import { useRouter } from "next/navigation";
-
-import { translations } from "./components/translations";
-import Hero from "./components/Hero";
 import { motion } from "framer-motion";
-import Lenis from "lenis";
-import Backsplash from "./components/Backsplash";
-import CountDownTimer from "./components/Footer/CountDownTimer";
 import { Button } from "@/components/ui/button";
 
-const seasonLight = localFont({
-  src: "../../public/TheSeasonsLight.ttf",
-});
-const seasonBold = localFont({
-  src: "../../public/TheSeasonsRegular.ttf",
-});
 const altaCaption = localFont({ src: "../../public/Alta_caption.otf" });
-
-const script = localFont({ src: "../../public/script.ttf" });
-
 const pinyon = localFont({ src: "../../public/PinyonScript-Regular.ttf" });
-
 const pangaia = localFont({ src: "../../public/PPPangaia-Medium.ttf" });
 
 export default function Home() {
@@ -49,17 +34,13 @@ export default function Home() {
     },
   };
 
-  const typingVariants = {
-    hidden: { width: 0 },
-    visible: (custom: any) => ({
-      width: custom.width,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        delay: custom.delay,
-      },
-    }),
+  const weddingVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 1.5, ease: "easeInOut" },
+    },
   };
 
   const handleClick = () => {
@@ -72,13 +53,18 @@ export default function Home() {
         <p className={`${pinyon.className} font-light text-xl`}>
           You are cordially invited to our
         </p>
-        <h1 className={`${pangaia.className} font-semibold text-7xl uppercase`}>
+        <motion.h1
+          initial="hidden"
+          animate="visible"
+          variants={weddingVariants}
+          className={`${pangaia.className} font-semibold text-7xl uppercase`}
+        >
           Wedding
-        </h1>
+        </motion.h1>
       </div>
       <div className="relative">
         <img src="bg.png" alt="Alvi Prity" className="w-[400px] h-[400px]" />
-        <div className="absolute inset-0 flex flex-row justify-center items-center text-white mt-56">
+        {/* <div className="absolute inset-0 flex flex-row justify-center items-center text-white mt-56">
           <motion.p
             custom={{ width: "100px", delay: 1 }}
             initial="hidden"
@@ -97,32 +83,50 @@ export default function Home() {
           >
             Prity
           </motion.p>
-        </div>
+        </div> */}
       </div>
-      <div className="text-center flex flex-col uppercase">
+      <div className="text-center flex flex-col uppercase justify-center items-center">
         <motion.p
           initial="hidden"
           animate="visible"
           variants={nameVariants}
-          className={`${pangaia.className}`}
+          className={`${pangaia.className} text-xl`}
         >
-          Sunday, September 8th 2024
+          2:00 PM, September 8th 2024
         </motion.p>
         <motion.p
           initial="hidden"
           animate="visible"
           variants={nameVariants}
-          className={`${pangaia.className}`}
+          className={`${pangaia.className} flex gap-2`}
         >
           Astoria World Manor
+          <a
+            className=""
+            href="https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyEAgBEC4YrwEYxwEYgAQYjgUyBwgCEAAYgAQyBwgDEAAYgAQyBggEEEUYOTIHCAUQABiABKgCALACAA&um=1&ie=UTF-8&fb=1&gl=us&sa=X&geocode=KXFuk3dGX8KJMT34jAVc8E3C&daddr=25-22+Astoria+Blvd,+Queens,+NY+11102"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
+              />
+            </svg>
+          </a>
         </motion.p>
-        <Button className={`${altaCaption.className} text-lg mt-4`} onClick={handleClick}>
+        <Button
+          className={`${altaCaption.className} text-lg mt-6 w-full`}
+          onClick={handleClick}
+        >
           RSVP
         </Button>
-      </div>
-
-      <div>
-        <CountDownTimer />
       </div>
     </div>
   );

@@ -6,15 +6,7 @@ import { motion } from "framer-motion";
 import localFont from "next/font/local";
 
 
-const seasonsBold = localFont({
-  src: "../../../../public/TheSeasonsRegular.ttf",
-});
-const seasonsLight = localFont({
-  src: "../../../../public/TheSeasonsLight.ttf",
-});
-
-const pangaia = localFont({src: "../../../../public/PPPangaia-Medium.ttf"})
-
+const pangaia = localFont({src: "../../../public/PPPangaia-Medium.ttf"})
 
 
 const Navbar = () => {

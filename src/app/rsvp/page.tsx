@@ -27,10 +27,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { motion } from "framer-motion";
+import CountDownTimer from "../../components/Footer/CountDownTimer";
 
-const season = localFont({ src: "../../../public/Alta_caption.otf" });
 const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
-const alta = localFont({ src: "../../../public/Alta_caption.otf" });
+const playfair = localFont({ src: "../../../public/Playfair.otf" });
+
 const guestArray = Array.from({ length: 10 }, (_, i) => i.toString());
 
 const formSchema = z
@@ -103,7 +104,6 @@ export default function Rsvp() {
       }
 
       const data = await response.json();
-      console.log("RSVP submitted successfully:", data);
       sessionStorage.setItem('guestName', values.name);
       router.push(`/thankyou`);
     } catch (error) {
@@ -120,6 +120,7 @@ export default function Rsvp() {
   return (
     <main className="flex max-h-screen flex-col items-center justify-center gap-5">
       <h1 className={`${pangaia.className} font-semibold text-7xl text-onyx uppercase`}>RSVP</h1>
+      <CountDownTimer />
       {isLoading ? (
         <motion.div
           initial="hidden"
@@ -139,7 +140,7 @@ export default function Rsvp() {
             animate="visible"
             variants={formVariants}
             onSubmit={form.handleSubmit(handleSubmit)}
-            className={`${pangaia.className} max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-white text-card-foreground shadow-sm transition-colors`}
+            className={`${playfair.className} max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-white text-card-foreground shadow-sm transition-colors`}
           >
             <FormField
               control={form.control}
@@ -159,7 +160,7 @@ export default function Rsvp() {
               name="guests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Number of Guests</FormLabel>
+                  <FormLabel>Party Size</FormLabel>
                   <FormControl>
                     <Select
                       disabled={decline}
@@ -236,7 +237,7 @@ export default function Rsvp() {
                     >
                       Regretfully Decline 💔
                     </label>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground lowercase">
                       We would love to have you join us, but we understand!
                     </p>
                   </div>
