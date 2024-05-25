@@ -48,9 +48,9 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center text-onyx gap-6">
+    <div className="flex flex-col justify-center items-center text-onyx gap-4">
       <div className="text-center">
-        <p className={`${pinyon.className} font-light text-xl`}>
+        <p className={`${pinyon.className} font-light text-2xl`}>
           You are cordially invited to our
         </p>
         <motion.h1
