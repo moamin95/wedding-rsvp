@@ -92,7 +92,7 @@ export default function Home() {
           variants={nameVariants}
           className={`${pangaia.className} text-xl`}
         >
-          2:00 PM, September 8th 2024
+          2:00 PM, September 8th, 2024
         </motion.p>
         <motion.p
           initial="hidden"
