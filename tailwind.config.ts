@@ -21,6 +21,9 @@ const config = {
       colors: {
         onyx: "#353935",
         soft: "#F9F6EE",
+        gold: '#FFD700',
+        ivory: '#F8F8FF',
+        bg: '#615F5E',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

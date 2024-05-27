@@ -48,10 +48,10 @@ const itemVariants = {
 export default function Page() {
   return (
     <div
-      className={`${pangaia.className} flex flex-col items-center text-onyx p-4`}
+      className={`${pangaia.className} flex flex-col items-center text-onyx px-4`}
     >
-      <h1 className="font-semibold text-6xl text-onyx uppercase">Program</h1>
-      <div className="relative w-full max-w-4xl mt-12 ">
+      <h1 className="font-semibold text-6xl text-soft uppercase">Program</h1>
+      <div className="relative w-full max-w-4xl mt-4">
         <div className="border-l-2 border-black absolute h-full left-1/2 transform -translate-x-1/2"></div>
         {events.map((event, index) => (
           <motion.div
@@ -60,7 +60,7 @@ export default function Page() {
             initial="hidden"
             animate="visible"
             variants={itemVariants}
-            className={`mb-12 flex justify-between items-center w-full mx-auto ${
+            className={`flex justify-between items-center w-full mx-auto ${
               index % 2 === 0 ? "flex-row" : "flex-row-reverse"
             }`}
           >
@@ -75,27 +75,22 @@ export default function Page() {
                 } w-6 `}
               >
                 <span
-                  className={`absolute ${
-                    index % 2 === 0 ? "left-[10px]" : "right-[10px]"
-                  } bg-soft`}
+                  className={`absolute border-b border-black w-4 ${
+                    index % 2 === 0 ? "left-[9px]" : "right-[9px]"
+                  } bg-transparent text-onyx`}
                 >
-                  {event.time}
+                  {/* {event.time} */}
                 </span>
               </div>
+              <p className="text-sm text-soft">{event.time}</p>
               <p className={` ${script.className} text-4xl font-semibold`}>
                 {event.title}
               </p>
-              <p className="text-sm text-gray-500">{event.description}</p>
+              <p className="text-sm text-soft">{event.description}</p>
             </div>
           </motion.div>
         ))}
       </div>
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={itemVariants}
-        className="mt-4"
-      >💍</motion.div>
     </div>
   );
 }

@@ -16,6 +16,13 @@ export default function TableDemo() {
   const [tableData, setTableData] = useState([]);
   const [guestTotal, setGuestTotal] = useState(0);
 
+  const columnWidths = {
+    name: 'w-1/3',
+    guests: 'w-1/6',
+    song: 'w-1/3',
+    attending: 'w-1/6',
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -49,14 +56,14 @@ export default function TableDemo() {
   };
 
   return (
-    <Table>
-      <TableCaption>A list of your wedding guests.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Name</TableHead>
-          <TableHead>Guests</TableHead>
-          <TableHead>Song</TableHead>
-          <TableHead className="text-right">Attending</TableHead>
+    <Table className="">
+      <TableCaption className="text-soft">A list of your wedding guests.</TableCaption>
+      <TableHeader className="text-soft">
+        <TableRow >
+          <TableHead className={columnWidths.name}>Name</TableHead>
+          <TableHead className={columnWidths.guests}>Guests</TableHead>
+          <TableHead className={columnWidths.song}>Song</TableHead>
+          <TableHead className={`${columnWidths.attending} text-right`}>Attending</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -67,11 +74,11 @@ export default function TableDemo() {
             song: string;
             attending: boolean;
           }) => (
-            <TableRow key={row.name}>
-              <TableCell className="font-medium">{row.name}</TableCell>
-              <TableCell>{row.guests}</TableCell>
-              <TableCell>{row.song}</TableCell>
-              <TableCell className="text-right">
+            <TableRow key={row.name} className="text-soft">
+              <TableCell className={`${columnWidths.name} font-medium`}>{row.name}</TableCell>
+              <TableCell className={columnWidths.guests}>{row.guests}</TableCell>
+              <TableCell className={columnWidths.song}>{row.song}</TableCell>
+              <TableCell className={`${columnWidths.attending} text-right`}>
                 {row.attending ? "Yes" : "No"}
               </TableCell>
             </TableRow>

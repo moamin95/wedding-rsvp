@@ -25,81 +25,46 @@ export default function Home() {
     requestAnimationFrame(raf);
   }, []);
 
-  const nameVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 1, ease: "easeInOut" },
-    },
-  };
+  // const nameVariants = {
+  //   hidden: { y: 50, opacity: 0 },
+  //   visible: {
+  //     y: 0,
+  //     opacity: 1,
+  //     transition: { duration: 1, ease: "easeInOut" },
+  //   },
+  // };
 
-  const weddingVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: { duration: 1.5, ease: "easeInOut" },
-    },
-  };
+  // const weddingVariants = {
+  //   hidden: { scale: 0.8, opacity: 0 },
+  //   visible: {
+  //     scale: 1,
+  //     opacity: 1,
+  //     transition: { duration: 1.5, ease: "easeInOut" },
+  //   },
+  // };
 
   const handleClick = () => {
     router.push(`/rsvp`);
   };
 
   return (
-    <div className="flex flex-col justify-center items-center text-onyx gap-4">
+    <div className="flex flex-col justify-center items-center text-soft gap-2">
       <div className="text-center">
         <p className={`${pinyon.className} font-light text-2xl`}>
           You are cordially invited to our
         </p>
-        <motion.h1
-          initial="hidden"
-          animate="visible"
-          variants={weddingVariants}
-          className={`${pangaia.className} font-semibold text-7xl uppercase`}
-        >
+        <h1 className={`${pangaia.className} font-semibold text-7xl uppercase`}>
           Wedding
-        </motion.h1>
+        </h1>
       </div>
       <div className="relative">
-        <img src="bg.png" alt="Alvi Prity" className="w-[400px] h-[400px]" />
-        {/* <div className="absolute inset-0 flex flex-row justify-center items-center text-white mt-56">
-          <motion.p
-            custom={{ width: "100px", delay: 1 }}
-            initial="hidden"
-            animate="visible"
-            variants={typingVariants}
-            className={`${pinyon.className} text-5xl overflow-hidden whitespace-nowrap  border-white`}
-          >
-            Alvi&
-          </motion.p>
-          <motion.p
-            custom={{ width: "100px", delay: 2 }}
-            initial="hidden"
-            animate="visible"
-            variants={typingVariants}
-            className={`${pinyon.className} text-5xl overflow-hidden whitespace-nowrap border-white`}
-          >
-            Prity
-          </motion.p>
-        </div> */}
+        <img src="file.jpg" alt="Alvi Prity" className="w-[300px] h-[300px] rounded-full border-4 border-white shadow-lg" />
       </div>
       <div className="text-center flex flex-col uppercase justify-center items-center">
-        <motion.p
-          initial="hidden"
-          animate="visible"
-          variants={nameVariants}
-          className={`${pangaia.className} text-xl`}
-        >
+        <p className={`${pangaia.className} text-xl`}>
           2:00 PM, September 8th, 2024
-        </motion.p>
-        <motion.p
-          initial="hidden"
-          animate="visible"
-          variants={nameVariants}
-          className={`${pangaia.className} flex gap-2`}
-        >
+        </p>
+        <p className={`${pangaia.className} flex gap-2`}>
           Astoria World Manor
           <a
             className=""
@@ -120,9 +85,9 @@ export default function Home() {
               />
             </svg>
           </a>
-        </motion.p>
+        </p>
         <Button
-          className={`${altaCaption.className} text-lg mt-6 mb-2 w-full`}
+          className={`${altaCaption.className} text-lg mt mb-2 w-full`}
           onClick={handleClick}
         >
           RSVP

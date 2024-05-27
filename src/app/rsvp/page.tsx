@@ -118,15 +118,14 @@ export default function Rsvp() {
   };
 
   return (
-    <main className="flex max-h-screen flex-col items-center justify-center gap-5">
-      <h1 className={`${pangaia.className} font-semibold text-7xl text-onyx uppercase`}>RSVP</h1>
-      <CountDownTimer />
+    <main className="flex max-h-screen flex-col items-center justify-center gap-3">
+      <h1 className={`${pangaia.className} font-semibold text-7xl text-soft uppercase`}>RSVP</h1>
       {isLoading ? (
         <motion.div
           initial="hidden"
           animate="visible"
           variants={formVariants}
-          className={`max-w-sm w-full flex flex-col gap-6 p-6 rounded-xl border bg-card text-card-foreground shadow-sm`}
+          className={`max-w-sm w-full flex flex-col gap-4 p-6 rounded-xl border bg-card text-card-foreground shadow-sm`}
         >
           <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
           <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
@@ -140,7 +139,7 @@ export default function Rsvp() {
             animate="visible"
             variants={formVariants}
             onSubmit={form.handleSubmit(handleSubmit)}
-            className={`${playfair.className} max-w-sm w-full flex flex-col gap-6 p-6 rounded-lg border bg-white text-card-foreground shadow-sm transition-colors`}
+            className={`${playfair.className} max-w-sm w-3/4 flex flex-col gap-4 p-4 rounded-lg border bg-soft text-card-foreground shadow-sm transition-colors`}
           >
             <FormField
               control={form.control}
@@ -213,7 +212,7 @@ export default function Rsvp() {
               control={form.control}
               name="decline"
               render={({ field }) => (
-                <div className="items-top flex space-x-2">
+                <div className="items-top flex space-x-2 mt-2">
                   <Checkbox
                     id="decline"
                     checked={field.value}
@@ -237,14 +236,11 @@ export default function Rsvp() {
                     >
                       Regretfully Decline 💔
                     </label>
-                    <p className="text-sm text-muted-foreground lowercase">
-                      We would love to have you join us, but we understand!
-                    </p>
                   </div>
                 </div>
               )}
             />
-            <Button type="submit" className="mt-4">Submit</Button>
+            <Button type="submit" className="mt-2">Submit</Button>
           </motion.form>
         </Form>
       )}

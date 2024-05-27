@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
 
 export default function Program() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
 
   useEffect(() => {
-    const storedName = sessionStorage.getItem('guestName');
+    const storedName = sessionStorage.getItem("guestName");
     if (storedName) {
       setName(storedName);
     }
@@ -30,11 +30,12 @@ export default function Program() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-onyx">
+    <div className="flex flex-col items-center justify-center text-soft">
       {name && (
-        <h2 className={`${pangaia.className} text-3xl mt-4`}>
-          Thank you, {typingEffect(name)}!
-        </h2>
+        <div className="text-center">
+          <h2 className={`${pangaia.className} text-3xl mt-4`}>Thank you!</h2>
+          <p className={`${pangaia.className} text-3xl`}>{typingEffect(name)}</p>
+        </div>
       )}
     </div>
   );
