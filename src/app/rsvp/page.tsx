@@ -234,13 +234,12 @@ export default function Rsvp() {
               name="team"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Team</FormLabel>
                   <FormControl>
                     <RadioGroup
                       disabled={decline}
                       onValueChange={field.onChange}
                       value={field.value}
-                      className="flex space-x-4"
+                      className="flex space-x-4 mt-2"
                     >
                       <RadioGroupItem value="bride" id="team-bride" />
                       <FormLabel
@@ -271,7 +270,7 @@ export default function Rsvp() {
               control={form.control}
               name="decline"
               render={({ field }) => (
-                <div className="items-top flex space-x-2 mt-2">
+                <div className="items-top flex space-x-2 mt-6">
                   <Checkbox
                     id="decline"
                     checked={field.value}

@@ -120,7 +120,7 @@ export default function TableDemo() {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="all">Team</SelectItem>
               <SelectItem value="bride">Team Bride</SelectItem>
               <SelectItem value="groom">Team Groom</SelectItem>
             </SelectGroup>
@@ -146,7 +146,7 @@ export default function TableDemo() {
           <TableRow>
             <TableHead className={columnWidths.name}>Name</TableHead>
             <TableHead className={`${columnWidths.guests} cursor-pointer`} onClick={handleSort}>
-              Guests {sortOrder === "asc" ? "↑" : "↓"}
+              Guests{sortOrder === "asc" ? "↑" : "↓"}
             </TableHead>
             <TableHead className={columnWidths.song}>Song</TableHead>
             <TableHead className={columnWidths.team}>Team</TableHead>

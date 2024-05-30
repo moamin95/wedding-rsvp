@@ -6,7 +6,7 @@ const CopyText = {
   weddingDate: "09.08.24",
   coupleNames: "Alvi & Prity",
   invitation:
-    "Together with their families, Alvi and Prity request your presence at their wedding. Join us as we celebrate the union of our hearts and souls in a ceremony filled with love, joy, and blessings.",
+    "Together with their families, Alvi and Prity request your presence at their wedding. Join us as we celebrate this union in a ceremony filled with love, joy, and blessings.",
   ceremonyDetails:
     "We will start the ceremony with our nikkah, followed by the reception and dinner in the same hall room.",
   when: "When",
