@@ -30,11 +30,10 @@ export default function Program() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-soft">
+    <div className="flex flex-col items-center justify-center text-onyx py-24">
       {name && (
         <div className="text-center">
-          <h2 className={`${pangaia.className} text-3xl mt-4`}>Thank you!</h2>
-          <p className={`${pangaia.className} text-3xl`}>{typingEffect(name)}</p>
+          <h2 className={`${pangaia.className} text-2xl mt-4`}>Thank you {typingEffect(name)}!</h2>
         </div>
       )}
     </div>

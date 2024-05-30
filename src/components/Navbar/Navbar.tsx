@@ -18,9 +18,7 @@ const Navbar = () => {
 
   const menuItems = [
     { id: 1, title: "home", path: "/" },
-    { id: 3, title: "RSVP", path: "/rsvp" },
-    { id: 2, title: "program", path: "/program" },
-    { id: 4, title: "faqs", path: "/" },
+    { id: 2, title: "RSVP", path: "/rsvp" }
   ];
 
   const motionVariants = {

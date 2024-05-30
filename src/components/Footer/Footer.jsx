@@ -7,11 +7,6 @@ import localFont from "next/font/local";
 
 import { translations } from "../translations";
 
-const pangaia = localFont({ src: "../../../../public/PPPangaia-Medium.ttf" });
-const seasonsLight = localFont({
-  src: "../../../../public/TheSeasonsLight.ttf",
-});
-
 export default function Footer() {
   const container = useRef();
   const paths = useRef([]);
@@ -36,10 +31,7 @@ export default function Footer() {
           id="curve"
           d="m0,88.5c61.37,0,61.5-68,126.5-68,58,0,51,68,123,68"
         />
-        <text
-          className={`text-[7px] uppercase ${pangaia.className}`}
-          style={{ fill: "red" }}
-        >
+        <text className={`text-[7px] uppercase`} style={{ fill: "red" }}>
           {[...Array(3)].map((_, i) => {
             return (
               <textPath
@@ -65,7 +57,7 @@ const Logos = ({ scrollProgress }) => {
     <div className="h-[250px] bg-black overflow-hidden">
       <motion.div
         style={{ y }}
-        className={` ${seasonsLight.className} 
+        className={`
         tracking-wide uppercase text-[12px] text-left
         h-full bg-black flex flex-col justify-center px-10 text-white`}
       >

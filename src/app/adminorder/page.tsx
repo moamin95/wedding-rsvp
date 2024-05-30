@@ -56,9 +56,10 @@ export default function TableDemo() {
   };
 
   return (
+    <div className="bg-soft">
     <Table className="">
-      <TableCaption className="text-soft">A list of your wedding guests.</TableCaption>
-      <TableHeader className="text-soft">
+      <TableCaption className="text-onyx">A list of your wedding guests.</TableCaption>
+      <TableHeader className="text-onyx">
         <TableRow >
           <TableHead className={columnWidths.name}>Name</TableHead>
           <TableHead className={columnWidths.guests}>Guests</TableHead>
@@ -74,7 +75,7 @@ export default function TableDemo() {
             song: string;
             attending: boolean;
           }) => (
-            <TableRow key={row.name} className="text-soft">
+            <TableRow key={row.name} className="text-onyx">
               <TableCell className={`${columnWidths.name} font-medium`}>{row.name}</TableCell>
               <TableCell className={columnWidths.guests}>{row.guests}</TableCell>
               <TableCell className={columnWidths.song}>{row.song}</TableCell>
@@ -92,5 +93,6 @@ export default function TableDemo() {
         </TableRow>
       </TableFooter>
     </Table>
+    </div>
   );
 }

@@ -21,4 +21,11 @@ export default function Template({ children }: { children: React.ReactNode }) {
       {children}
     </motion.div>
   );
+
+  // return (
+  //   <div
+  //   >
+  //     {children}
+  //   </div>
+  // );
 }

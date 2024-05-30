@@ -118,20 +118,10 @@ export default function Rsvp() {
   };
 
   return (
-    <main className="flex max-h-screen flex-col items-center justify-center gap-3">
-      <h1 className={`${pangaia.className} font-semibold text-7xl text-soft uppercase`}>RSVP</h1>
+    <main className="flex min-h-[80vh] flex-col items-center py-24 gap-12 bg-soft">
+      <h1 className={`${pangaia.className} font-semibold text-4xl text-onyx uppercase`}>RSVP</h1>
       {isLoading ? (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={formVariants}
-          className={`max-w-sm w-full flex flex-col gap-4 p-6 rounded-xl border bg-card text-card-foreground shadow-sm`}
-        >
-          <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
-          <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
-          <Skeleton className="flex h-9 w-full rounded-md border border-input px-3 py-1" />
-          <Skeleton className="h-9 px-4 py-2" />
-        </motion.div>
+        <div>Loading...</div>
       ) : (
         <Form {...form}>
           <motion.form
@@ -139,7 +129,7 @@ export default function Rsvp() {
             animate="visible"
             variants={formVariants}
             onSubmit={form.handleSubmit(handleSubmit)}
-            className={`${playfair.className} max-w-sm w-3/4 flex flex-col gap-4 p-4 rounded-lg border bg-soft text-card-foreground shadow-sm transition-colors`}
+            className={`${playfair.className} max-w-sm w-3/4 flex flex-col gap-4 p-2`}
           >
             <FormField
               control={form.control}

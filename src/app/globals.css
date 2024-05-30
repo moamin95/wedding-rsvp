@@ -53,20 +53,6 @@
   body {
     @apply font-sans antialiased;
     background-color: #F9F6EE;
-    margin-top: 30%;
-    background-image: url('/bg4.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    @media (min-width:768px) and (max-width: 1024px ){
-      margin-top: 20%;
-      background-image: none;
-    }
-
-    @media screen and (min-width:1025px){
-      margin-top: 10%;
-      background-image: none;
-    }
   }
 
   @layer base {
