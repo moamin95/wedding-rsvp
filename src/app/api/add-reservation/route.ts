@@ -5,6 +5,7 @@ interface RsvpRequestBody {
   guestName: string;
   guestCount: number;
   songRequest?: string;
+  team?: string;
   attending: boolean;
 }
 
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { guestName, guestCount, songRequest, attending } = requestBody;
+  const { guestName, guestCount, songRequest, team, attending } = requestBody;
 
   try {
     if (
@@ -28,7 +29,7 @@ export async function POST(request: Request) {
       throw new Error("All fields required");
     }
 
-    await sql`INSERT INTO registry (Name, Guests, Song, Attending) VALUES (${guestName}, ${guestCount}, ${songRequest}, ${attending});`;
+    await sql`INSERT INTO rsvp (Name, Guests, Song, Team, Attending) VALUES (${guestName}, ${guestCount}, ${songRequest}, ${team}, ${attending});`;
     return NextResponse.json({ message: "RSVP submitted successfully" });
   } catch (error) {
     if (error instanceof Error) {

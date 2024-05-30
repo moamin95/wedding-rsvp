@@ -1,13 +1,32 @@
-export const translations = {
-    hero: {
-        'heading': 'save the date',
-        'date': 'Sunday, September 8th',
-        'location': 'two oclock in the afternoon, at the beautiful astoria world manor in queens'
-    },
-    button: {
-        rsvp: 'RSVP'
-    },
-    footer: {
-        path: 'Curabitur mattis efficitur velit'
-    }
-}
+const CopyText = {
+  message: "We're getting married!",
+  blurb: "We hope you'll join us on our special day!",
+  addressLink:
+    "https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUqDAgAECMYJxiABBiKBTIMCAAQIxgnGIAEGIoFMhAIARAuGK8BGMcBGIAEGI4FMg0IAhAuGIMBGLEDGIAEMgYIAxBFGEAyFggEEC4YgwEYrwEYxwEYsQMYgAQYjgUyFggFEC4YgwEYrwEYxwEYsQMYgAQYjgUyEAgGEC4YrwEYxwEYgAQYjgUyBggHEEUYPdIBCDE2MzBqMGo0qAIAsAIB&um=1&ie=UTF-8&fb=1&gl=us&sa=X&geocode=KXFuk3dGX8KJMT34jAVc8E3C&daddr=25-22+Astoria+Blvd,+Queens,+NY+11102",
+  weddingDate: "09.08.24",
+  coupleNames: "Alvi & Prity",
+  invitation:
+    "Together with their families, Alvi and Prity request your presence at their wedding. Join us as we celebrate the union of our hearts and souls in a ceremony filled with love, joy, and blessings.",
+  ceremonyDetails:
+    "We will start the ceremony with our nikkah, followed by the reception and dinner in the same hall room.",
+  when: "When",
+  where: "Where",
+  weddingDateDetail: "September 8, 2024",
+  nikkahTime: "nikkah: 2:00 - 3:00 PM",
+  receptionTime: "reception: 3:00 - 6:00 PM",
+  venueName: "Astoria World Manor",
+  venueAddress1: "25-22 Astoria Blvd",
+  venueAddress2: "Queens, NY 11102",
+  directions: "+ Directions",
+  faqs: "FAQs",
+  faqWear: "What should I wear?",
+  faqWearDetails:
+    "We request that women wear white or off-white colors. Men wear suits.",
+  faqGifts: "Gifts?",
+  faqGiftsDetails:
+    "Your presence is the best gift. But if you insist, cash only please!",
+  faqParking: "Parking?",
+  faqParkingDetails: "Yes, the venue has complimentary valet parking 🥳",
+};
+
+export default CopyText;

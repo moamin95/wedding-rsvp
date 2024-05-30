@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import * as z from "zod";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import localFont from "next/font/local";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Oval } from "react-loader-spinner";
 import {
   Form,
   FormField,
@@ -26,8 +26,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { motion } from "framer-motion";
-import CountDownTimer from "../../components/Footer/CountDownTimer";
 
 const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
 const playfair = localFont({ src: "../../../public/Playfair.otf" });
@@ -39,6 +39,7 @@ const formSchema = z
     name: z.string().min(1, "Name is required"),
     guests: z.number().nullable(),
     songRequest: z.string().max(255).optional(),
+    team: z.enum(["bride", "groom", ""]).optional(),
     decline: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
@@ -67,6 +68,7 @@ export default function Rsvp() {
       name: "",
       guests: null,
       songRequest: "",
+      team: "",
       decline: false,
     },
   });
@@ -79,6 +81,7 @@ export default function Rsvp() {
   useEffect(() => {
     if (decline) {
       form.setValue("guests", 0);
+      form.setValue("team", "");
     }
   }, [decline, form]);
 
@@ -88,8 +91,10 @@ export default function Rsvp() {
       guestName: values.name,
       guestCount: values.guests,
       songRequest: values.songRequest,
+      team: values.team,
       attending: !values.decline,
     };
+
     try {
       const response = await fetch("/api/add-reservation", {
         method: "POST",
@@ -104,7 +109,7 @@ export default function Rsvp() {
       }
 
       const data = await response.json();
-      sessionStorage.setItem('guestName', values.name);
+      sessionStorage.setItem("guestName", values.name);
       router.push(`/thankyou`);
     } catch (error) {
       setIsLoading(false);
@@ -114,14 +119,34 @@ export default function Rsvp() {
 
   const formVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeInOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeInOut" },
+    },
   };
 
   return (
     <main className="flex min-h-[80vh] flex-col items-center py-24 gap-12 bg-soft">
-      <h1 className={`${pangaia.className} font-semibold text-4xl text-onyx uppercase`}>RSVP</h1>
+      <h1
+        className={`${pangaia.className} font-semibold text-4xl text-onyx uppercase`}
+      >
+        RSVP
+      </h1>
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="p-24">
+
+          <Oval
+            visible={true}
+            height="50"
+            width="50"
+            color="#353935"
+            secondaryColor="#F08E80"
+            ariaLabel="oval-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
       ) : (
         <Form {...form}>
           <motion.form
@@ -138,7 +163,12 @@ export default function Rsvp() {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Name" type="name" />
+                    <Input
+                      {...field}
+                      placeholder="Name"
+                      type="name"
+                      className="border-onyx"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -149,7 +179,7 @@ export default function Rsvp() {
               name="guests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Party Size</FormLabel>
+                  <FormLabel>Party Size (Including yourself)</FormLabel>
                   <FormControl>
                     <Select
                       disabled={decline}
@@ -158,7 +188,7 @@ export default function Rsvp() {
                         field.onChange(Number(value));
                       }}
                     >
-                      <SelectTrigger className="max-w-md w-full">
+                      <SelectTrigger className="max-w-md w-full border-onyx">
                         <SelectValue placeholder="0">
                           {field.value !== null
                             ? String(field.value)
@@ -192,12 +222,51 @@ export default function Rsvp() {
                       placeholder="079me - B Young"
                       type="text"
                       disabled={decline}
+                      className="border-onyx"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="team"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Team</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      disabled={decline}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      className="flex space-x-4"
+                    >
+                      <RadioGroupItem value="bride" id="team-bride" />
+                      <FormLabel
+                        htmlFor="team-bride"
+                        className={
+                          decline ? "text-gray-500 cursor-not-allowed" : ""
+                        }
+                      >
+                        Team Bride
+                      </FormLabel>
+                      <RadioGroupItem value="groom" id="team-groom" />
+                      <FormLabel
+                        htmlFor="team-groom"
+                        className={
+                          decline ? "text-gray-500 cursor-not-allowed" : ""
+                        }
+                      >
+                        Team Groom
+                      </FormLabel>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="decline"
@@ -230,7 +299,12 @@ export default function Rsvp() {
                 </div>
               )}
             />
-            <Button type="submit" className="mt-2">Submit</Button>
+            <Button
+              type="submit"
+              className="mt-2 bg-pink text-onyx text-lg p-4 uppercase hover:bg-onyx hover:text-soft transition-colors duration-300 ease-in-out"
+            >
+              Submit
+            </Button>
           </motion.form>
         </Form>
       )}

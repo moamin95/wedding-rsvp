@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   noStore();
   try {
-    const result = await sql`SELECT * FROM registry;`;
+    const result = await sql`SELECT * FROM rsvp;`;
     return NextResponse.json({ rows: result.rows }, { status: 200 });
   } catch (error) {
     console.error("Error fetching reservations:", error);

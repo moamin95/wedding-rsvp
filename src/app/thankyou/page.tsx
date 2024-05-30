@@ -30,10 +30,16 @@ export default function Program() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-onyx py-24">
-      {name && (
+    <div className="flex flex-col items-center justify-center text-onyx min-h-screen">
+      {name ? (
         <div className="text-center">
+          <h1 className={`${pangaia.className} text-4xl`}>RSVP Confirmation</h1>
           <h2 className={`${pangaia.className} text-2xl mt-4`}>Thank you {typingEffect(name)}!</h2>
+        </div>
+      ): (
+        <div className="text-center">
+          <h1 className={`${pangaia.className} text-4xl`}>RSVP Confirmation</h1>
+          <h2 className={`${pangaia.className} text-2xl mt-4`}>Thank you!</h2>
         </div>
       )}
     </div>

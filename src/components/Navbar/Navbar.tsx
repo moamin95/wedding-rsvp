@@ -5,9 +5,7 @@ import Styles from "./navbar.module.scss";
 import { motion } from "framer-motion";
 import localFont from "next/font/local";
 
-
-const pangaia = localFont({src: "../../../public/PPPangaia-Medium.ttf"})
-
+const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
 
 const Navbar = () => {
   const [burgerMenuActive, setBurgerMenuActive] = useState(false);
@@ -18,7 +16,7 @@ const Navbar = () => {
 
   const menuItems = [
     { id: 1, title: "home", path: "/" },
-    { id: 2, title: "RSVP", path: "/rsvp" }
+    { id: 2, title: "RSVP", path: "/rsvp" },
   ];
 
   const motionVariants = {
