@@ -30,7 +30,7 @@ export default function Program() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-onyx min-h-screen">
+    <div className="flex flex-col items-center justify-center text-onyx min-h-[80vh]">
       {name ? (
         <div className="text-center">
           <h1 className={`${pangaia.className} text-4xl`}>RSVP Confirmation</h1>
