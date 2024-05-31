@@ -12,7 +12,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Reservation = {
   name: string;
@@ -31,11 +38,11 @@ export default function TableDemo() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const columnWidths = {
-    name: 'w-1/3',
-    guests: 'w-1/8',
-    song: 'w-1/3',
-    team: 'w-1/8',
-    attending: 'w-1/8',
+    name: "w-1/3",
+    guests: "w-1/8",
+    song: "w-1/3",
+    team: "w-1/8",
+    attending: "w-1/8",
   };
 
   useEffect(() => {
@@ -73,16 +80,18 @@ export default function TableDemo() {
     let filtered = [...tableData];
 
     if (teamFilter !== "all") {
-      filtered = filtered.filter(row => row.team === teamFilter);
+      filtered = filtered.filter((row) => row.team === teamFilter);
     }
 
     if (searchTerm) {
-      filtered = filtered.filter(row => row.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      filtered = filtered.filter((row) =>
+        row.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     }
 
     if (attendingFilter !== "all") {
       const attending = attendingFilter === "yes";
-      filtered = filtered.filter(row => row.attending === attending);
+      filtered = filtered.filter((row) => row.attending === attending);
     }
 
     setFilteredData(filtered);
@@ -102,7 +111,6 @@ export default function TableDemo() {
   };
 
   const totalGuests = filteredData.reduce((sum, row) => sum + row.guests, 0);
-
 
   return (
     <div className="bg-soft py-24 px-4 lg:p-36">
@@ -141,32 +149,49 @@ export default function TableDemo() {
         </Select>
       </div>
       <Table className="">
-        <TableCaption className="text-onyx">A list of your wedding guests.</TableCaption>
+        <TableCaption className="text-onyx">
+          A list of your wedding guests.
+        </TableCaption>
         <TableHeader className="text-onyx">
           <TableRow>
             <TableHead className={columnWidths.name}>Name</TableHead>
-            <TableHead className={`${columnWidths.guests} cursor-pointer`} onClick={handleSort}>
-              Guests{sortOrder === "asc" ? "↑" : "↓"}
+            <TableHead
+              className={`${columnWidths.guests} cursor-pointer`}
+              onClick={handleSort}
+            >
+              Guests {sortOrder === "asc" ? "↑" : "↓"}
             </TableHead>
-            <TableHead className={columnWidths.song}>Song</TableHead>
+            <TableHead className={`${columnWidths.song} hidden md:table-cell`}>
+              Song
+            </TableHead>
             <TableHead className={columnWidths.team}>Team</TableHead>
-            <TableHead className={`${columnWidths.attending} text-right`}>Attending</TableHead>
+            <TableHead className={`${columnWidths.attending} text-right`}>
+              Attending
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredData.map(
-            (row) => (
-              <TableRow key={row.name} className="text-onyx">
-                <TableCell className={`${columnWidths.name} font-medium`}>{row.name}</TableCell>
-                <TableCell className={columnWidths.guests}>{row.guests}</TableCell>
-                <TableCell className={columnWidths.song}>{row.song}</TableCell>
-                <TableCell className={`${columnWidths.team} capitalize`}>{row.team}</TableCell>
-                <TableCell className={`${columnWidths.attending} text-right`}>
-                  {row.attending ? "Yes" : "No"}
-                </TableCell>
-              </TableRow>
-            )
-          )}
+          {filteredData.map((row) => (
+            <TableRow key={row.name} className="text-onyx">
+              <TableCell className={`${columnWidths.name} font-medium`}>
+                {row.name}
+              </TableCell>
+              <TableCell className={columnWidths.guests}>
+                {row.guests}
+              </TableCell>
+              <TableCell
+                className={`${columnWidths.song} hidden md:table-cell`}
+              >
+                {row.song}
+              </TableCell>
+              <TableCell className={`${columnWidths.team} capitalize`}>
+                {row.team}
+              </TableCell>
+              <TableCell className={`${columnWidths.attending} text-right`}>
+                {row.attending ? "Yes" : "No"}
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
         <TableFooter>
           <TableRow>

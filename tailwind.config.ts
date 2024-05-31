@@ -24,7 +24,7 @@ const config = {
       colors: {
         onyx: "#353935",
         soft: "#F9F6EE",
-        pink: "#F08E80",
+        pink: "#A1B382",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

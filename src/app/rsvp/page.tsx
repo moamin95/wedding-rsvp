@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { motion } from "framer-motion";
+import groupedParties from "../../lib/groupedParties";
 
 const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
 const playfair = localFont({ src: "../../../public/Playfair.otf" });
@@ -60,6 +61,10 @@ const formSchema = z
 
 export default function Rsvp() {
   const [isLoading, setIsLoading] = useState(false);
+  const [partyGuests, setPartyGuests] = useState<string[]>([]);
+  const [guestResponses, setGuestResponses] = useState<{
+    [key: string]: string | null;
+  }>({});
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -85,35 +90,111 @@ export default function Rsvp() {
     }
   }, [decline, form]);
 
+  const checkNameInGroupedParties = (name: string) => {
+    for (const party in groupedParties) {
+      if (
+        groupedParties[
+          party as unknown as keyof typeof groupedParties
+        ].includes(name)
+      ) {
+        return groupedParties[party as unknown as keyof typeof groupedParties];
+      }
+    }
+    return null;
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.value;
+    form.setValue("name", name);
+
+    if (name.length > 2) {
+      const party = checkNameInGroupedParties(name);
+      setPartyGuests(party ? party.filter((guest) => guest !== name) : []);
+      setGuestResponses(
+        party
+          ? party.reduce((acc, guest) => {
+              if (guest !== name) acc[guest] = null;
+              return acc;
+            }, {} as { [key: string]: string | null })
+          : {}
+      );
+    } else {
+      setPartyGuests([]);
+      setGuestResponses({});
+    }
+
+    // Reset guest count to 0 if the name input is empty
+    if (name.length === 0) {
+      form.setValue("guests", 0);
+    }
+  };
+
+  const handleGuestResponseChange = (guest: string, response: string) => {
+    setGuestResponses((prev) => ({ ...prev, [guest]: response }));
+    const attendingCount = Object.values({
+      ...guestResponses,
+      [guest]: response,
+    }).filter((r) => r === "attending").length;
+    form.setValue("guests", attendingCount + 1);
+  };
+
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
+
     const payload = {
       guestName: values.name,
       guestCount: values.guests,
       songRequest: values.songRequest,
       team: values.team,
       attending: !values.decline,
+      guestResponses,
     };
 
-    try {
-      const response = await fetch("/api/add-reservation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+    if (
+      Object.keys(payload.guestResponses).length &&
+      Object.values(payload.guestResponses).length > 0
+    ) {
+      try {
+        const response = await fetch("/api/add-reservations", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        sessionStorage.setItem("guestName", values.name);
+        router.push(`/thankyou`);
+      } catch (error) {
+        setIsLoading(false);
+        console.error("Error submitting RSVP:", error);
       }
+    } else {
+      try {
+        const response = await fetch("/api/add-reservation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
 
-      const data = await response.json();
-      sessionStorage.setItem("guestName", values.name);
-      router.push(`/thankyou`);
-    } catch (error) {
-      setIsLoading(false);
-      console.error("Error submitting RSVP:", error);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        sessionStorage.setItem("guestName", values.name);
+        router.push(`/thankyou`);
+      } catch (error) {
+        setIsLoading(false);
+        console.error("Error submitting RSVP:", error);
+      }
     }
   };
 
@@ -126,6 +207,8 @@ export default function Rsvp() {
     },
   };
 
+  const formLabelStyle = `${pangaia.className} text-lg text-onyx`;
+
   return (
     <main className="flex min-h-[80vh] flex-col items-center py-24 gap-12 bg-soft">
       <h1
@@ -135,7 +218,6 @@ export default function Rsvp() {
       </h1>
       {isLoading ? (
         <div className="p-24">
-
           <Oval
             visible={true}
             height="50"
@@ -154,35 +236,84 @@ export default function Rsvp() {
             animate="visible"
             variants={formVariants}
             onSubmit={form.handleSubmit(handleSubmit)}
-            className={`${playfair.className} max-w-sm w-3/4 flex flex-col gap-4 p-2`}
+            className={`${pangaia.className} max-w-sm w-3/4 flex flex-col gap-4 p-2`}
           >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className={formLabelStyle}>Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="Name"
+                      placeholder="Use the name we call you..."
                       type="name"
                       className="border-onyx"
+                      onChange={handleNameChange}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            {partyGuests.length > 0 && (
+              <div>
+                <h3 className="mb-2">Party Members</h3>
+                <ul className="">
+                  {partyGuests.map((guest, index) => (
+                    <li key={index} className="p-1">
+                      {guest}
+                      <RadioGroup
+                        onValueChange={(value) =>
+                          handleGuestResponseChange(guest, value)
+                        }
+                        value={guestResponses[guest] || ""}
+                        className="flex space-x-4 mt-2"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem
+                            value="attending"
+                            id={`attending-${guest}`}
+                            className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                          />
+                          <FormLabel
+                            htmlFor={`attending-${guest}`}
+                            className="text-gray-700"
+                          >
+                            Attending
+                          </FormLabel>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem
+                            value="not_attending"
+                            id={`not_attending-${guest}`}
+                            className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                          />
+                          <FormLabel
+                            htmlFor={`not_attending-${guest}`}
+                            className="text-gray-700"
+                          >
+                            Not Attending
+                          </FormLabel>
+                        </div>
+                      </RadioGroup>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <FormField
               control={form.control}
               name="guests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Party Size (Including yourself)</FormLabel>
+                  <FormLabel className={formLabelStyle}>
+                    Party Size (Including yourself)
+                  </FormLabel>
                   <FormControl>
                     <Select
-                      disabled={decline}
+                      disabled={decline || partyGuests.length > 0}
                       value={field.value !== null ? String(field.value) : ""}
                       onValueChange={(value) => {
                         field.onChange(Number(value));
@@ -215,7 +346,7 @@ export default function Rsvp() {
               name="songRequest"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Song Request</FormLabel>
+                  <FormLabel className={formLabelStyle}>Song Request</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -245,7 +376,9 @@ export default function Rsvp() {
                       <FormLabel
                         htmlFor="team-bride"
                         className={
-                          decline ? "text-gray-500 cursor-not-allowed" : ""
+                          decline
+                            ? `${pangaia.className} text-gray-500 cursor-not-allowed text-lg`
+                            : `${pangaia.className} text-lg`
                         }
                       >
                         Team Bride
@@ -254,7 +387,9 @@ export default function Rsvp() {
                       <FormLabel
                         htmlFor="team-groom"
                         className={
-                          decline ? "text-gray-500 cursor-not-allowed" : ""
+                          decline
+                            ? `text-gray-500 cursor-not-allowed ${pangaia.className} text-lg`
+                            : `${pangaia.className} text-lg`
                         }
                       >
                         Team Groom
@@ -265,7 +400,6 @@ export default function Rsvp() {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="decline"
@@ -290,7 +424,7 @@ export default function Rsvp() {
                   <div className="grid gap-1.5 leading-none">
                     <label
                       htmlFor="decline"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      className={`${pangaia.className} text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70`}
                     >
                       Regretfully Decline 💔
                     </label>
@@ -300,7 +434,7 @@ export default function Rsvp() {
             />
             <Button
               type="submit"
-              className="mt-2 bg-pink text-onyx text-lg p-4 uppercase hover:bg-onyx hover:text-soft transition-colors duration-300 ease-in-out"
+              className={`${pangaia.className} mt-2 bg-pink text-onyx text-lg p-4 uppercase hover:bg-onyx hover:text-soft transition-colors duration-300 ease-in-out`}
             >
               Submit
             </Button>

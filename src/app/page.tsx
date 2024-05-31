@@ -171,7 +171,7 @@ export default function Home() {
       </div>
 
       <div className="min-h-[10vh] bg-soft flex items-center justify-center">
-        <div className={`${pangaia.className}`}>AP</div>
+        <div className={`${pangaia.className}`}>Alvi & Prity</div>
       </div>
     </ParallaxProvider>
   );
