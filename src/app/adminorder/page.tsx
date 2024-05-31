@@ -112,9 +112,28 @@ export default function TableDemo() {
 
   const totalGuests = filteredData.reduce((sum, row) => sum + row.guests, 0);
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch("/api/delete-reservation", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      getData();
+    } catch (error) {
+      console.error("Error Deleting Data:", error);
+    }
+  };
+
   return (
-    <div className="bg-soft py-24 px-4 lg:p-36">
-      <div className="flex gap-4 mb-4">
+    <div className="bg-soft py-24 px-4 lg:p-36 flex flex-col justify-center items-center">
+      <div className="flex gap-4 mb-4 min-w-full">
         <Input
           type="text"
           placeholder="Search by Name"
@@ -200,6 +219,13 @@ export default function TableDemo() {
           </TableRow>
         </TableFooter>
       </Table>
+
+      <button
+        className="mt-10 bg-[#353935] text-white text-sm p-2 uppercase rounded-md hover:bg-gray-800 transition-colors duration-300 ease-in-out shadow-md hover:shadow-lg"
+        onClick={handleDelete}
+      >
+        Delete All
+      </button>
     </div>
   );
 }

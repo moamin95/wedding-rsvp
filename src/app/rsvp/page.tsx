@@ -18,22 +18,12 @@ import {
   FormLabel,
   FormControl,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { motion } from "framer-motion";
 import groupedParties from "../../lib/groupedParties";
 
 const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
 const playfair = localFont({ src: "../../../public/Playfair.otf" });
-
-const guestArray = Array.from({ length: 10 }, (_, i) => i.toString());
 
 const formSchema = z
   .object({
@@ -118,9 +108,15 @@ export default function Rsvp() {
             }, {} as { [key: string]: string | null })
           : {}
       );
+
+      // If no party is found, set guests to 1
+      if (!party) {
+        form.setValue("guests", 1);
+      }
     } else {
       setPartyGuests([]);
       setGuestResponses({});
+      form.setValue("guests", null);
     }
 
     // Reset guest count to 0 if the name input is empty
@@ -303,44 +299,6 @@ export default function Rsvp() {
                 </ul>
               </div>
             )}
-            <FormField
-              control={form.control}
-              name="guests"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className={formLabelStyle}>
-                    Party Size (Including yourself)
-                  </FormLabel>
-                  <FormControl>
-                    <Select
-                      disabled={decline || partyGuests.length > 0}
-                      value={field.value !== null ? String(field.value) : ""}
-                      onValueChange={(value) => {
-                        field.onChange(Number(value));
-                      }}
-                    >
-                      <SelectTrigger className="max-w-md w-full border-onyx">
-                        <SelectValue placeholder="0">
-                          {field.value !== null
-                            ? String(field.value)
-                            : "Select number of guests"}
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {guestArray.map((count) => (
-                            <SelectItem key={count} value={count}>
-                              {count}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="songRequest"
