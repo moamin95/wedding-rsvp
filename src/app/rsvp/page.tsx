@@ -77,8 +77,10 @@ export default function Rsvp() {
     if (decline) {
       form.setValue("guests", 0);
       form.setValue("team", "");
+    } else if (partyGuests.length > 0) {
+      form.setValue("guests", partyGuests.length + 1);
     }
-  }, [decline, form]);
+  }, [decline, form, partyGuests]);
 
   const checkNameInGroupedParties = (name: string) => {
     for (const party in groupedParties) {
@@ -146,51 +148,25 @@ export default function Rsvp() {
       guestResponses,
     };
 
-    if (
-      Object.keys(payload.guestResponses).length &&
-      Object.values(payload.guestResponses).length > 0
-    ) {
-      try {
-        const response = await fetch("/api/add-reservations", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
+    try {
+      const response = await fetch("/api/add-reservation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
-        sessionStorage.setItem("guestName", values.name);
-        router.push(`/thankyou`);
-      } catch (error) {
-        setIsLoading(false);
-        console.error("Error submitting RSVP:", error);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    } else {
-      try {
-        const response = await fetch("/api/add-reservation", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
-        sessionStorage.setItem("guestName", values.name);
-        router.push(`/thankyou`);
-      } catch (error) {
-        setIsLoading(false);
-        console.error("Error submitting RSVP:", error);
-      }
+      const data = await response.json();
+      sessionStorage.setItem("guestName", values.name);
+      router.push(`/thankyou`);
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Error submitting RSVP:", error);
     }
   };
 
@@ -253,7 +229,7 @@ export default function Rsvp() {
                 </FormItem>
               )}
             />
-            {partyGuests.length > 0 && (
+            {!decline && partyGuests.length > 0 && (
               <div>
                 <h3 className="mb-2">Party Members</h3>
                 <ul className="">
@@ -366,14 +342,20 @@ export default function Rsvp() {
                   <Checkbox
                     id="decline"
                     checked={field.value}
-                    onCheckedChange={field.onChange}
+                    onCheckedChange={(value) => {
+                      field.onChange(value);
+                      if (value) {
+                        form.setValue("guests", 0);
+                      } else {
+                        form.setValue("guests", partyGuests.length > 0 ? partyGuests.length + 1 : 1);
+                      }
+                    }}
                     onKeyDown={(event) => {
                       if (event.key === "Enter") {
                         event.preventDefault();
                         field.onChange(!field.value);
                       }
                     }}
-                    onChange={field.onChange}
                     onBlur={field.onBlur}
                     disabled={field.disabled}
                     name={field.name}
@@ -392,7 +374,7 @@ export default function Rsvp() {
             />
             <Button
               type="submit"
-              className={`${pangaia.className} mt-2 bg-pink text-onyx text-lg p-4 uppercase hover:bg-onyx hover:text-soft transition-colors duration-300 ease-in-out`}
+              className={`${pangaia.className} mt-2 bg-[#353935] text-white text-lg p-4 uppercase rounded-md hover:bg-gray-800 transition-colors duration-300 ease-in-out shadow-md hover:shadow-lg`}
             >
               Submit
             </Button>
