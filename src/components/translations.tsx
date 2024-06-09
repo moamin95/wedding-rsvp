@@ -24,7 +24,7 @@ const CopyText = {
     "We request that women wear white or off-white colors. Men wear suits.",
   faqGifts: "Gifts?",
   faqGiftsDetails:
-    "Your presence is the best gift. But if you insist, cash only please!",
+    "Your presence is the best gift! No boxed gifts.",
   faqParking: "Parking?",
   faqParkingDetails: "Yes, the venue has complimentary valet parking 🥳",
 };

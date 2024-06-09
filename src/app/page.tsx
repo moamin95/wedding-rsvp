@@ -164,7 +164,7 @@ export default function Home() {
               className={`${playfair.className} bg-pink text-onyx text-2xl p-4 hover:bg-onyx hover:text-soft transition-colors duration-300 ease-in-out`}
               onClick={handleClick}
             >
-              RSVP
+              CLICK TO RSVP
             </button>
           </div>
         </Parallax>
