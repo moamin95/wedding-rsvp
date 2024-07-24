@@ -90,11 +90,11 @@ export default function Home() {
                 </div>
 
                 <div>
-                  <div className={`text-lg text-onyx`}>
-                    {CopyText.nikkahTime}
+                <div className={`text-lg text-onyx`}>
+                    {CopyText.receptionTime}
                   </div>
                   <div className={`text-lg text-onyx`}>
-                    {CopyText.receptionTime}
+                    {CopyText.nikkahTime}
                   </div>
                 </div>
               </div>
