@@ -34,6 +34,20 @@ const groupedParties = {
   33: ['Tahmina', 'Jahnie', 'Mr. Ilan'],
   34: ['Priya', 'Moshiur'],
   35: ['Arnab', 'Erin'],
+  36: ['Sherin', 'Kerwin'],
+  37: ['Mahwiyat', 'Arif'],
+  38: ['Sufer', 'Fatima', 'Jan', 'Jamin'],
+  39: ['Rukeya', 'Akbar', 'Tahmim', 'Nasim'],
+  40: ['Gulshanara', 'Maiz'],
+  41: ['Basith', 'Shamima', 'Mahira', 'Maisha', 'Suhan'],
+  42: ['Khaled'],
+  43: ['Saif'],
+  44: ['Ayon'],
+  45: ['Nash'],
+  46: ['Navid'],
+  47: ['Fazle'],
+  48: ['Shahara'],
+  49: ['Tabby']
 };
 
 export default groupedParties;
