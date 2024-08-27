@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { motion } from "framer-motion";
-import groupedParties from "../../lib/groupedParties";
+import groupedParties from '../../lib/groupedParties'
 
 const pangaia = localFont({ src: "../../../public/PPPangaia-Medium.ttf" });
 const playfair = localFont({ src: "../../../public/Playfair.otf" });
