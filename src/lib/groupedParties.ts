@@ -49,3 +49,5 @@ const groupedParties = {
   48: ['Shahara'],
   49: ['Tabby']
 };
+
+export default groupedParties;
