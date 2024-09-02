@@ -187,16 +187,15 @@ export default function Seats() {
     <main>
     <div className="flex flex-col items-center min-h-[80vh] bg-[url('/bw.jpg')] bg-cover bg-top md:bg-cover md:bg-center md:min-h-[100vh] lg:min-h-[130vh]  bg-no-repeat">
       <div
-        className={`${pangaia.className} flex flex-col items-center text-4xl md:text-7xl py-12 md:py-32 lg:py-80 text-black md:text-soft max-w-screen-sm`}
+        className={`${pangaia.className} flex flex-col items-center text-6xl 
+        md:text-7xl py-12 md:py-32 lg:py-80 text-black md:text-soft max-w-screen-sm`}
       >
-        Alvi & Prity
+        <span className="">Alvi & Prity</span>
         <span className={`${script.className} text-3xl md:text-4xl`}>Please be seated</span>
       </div>
     </div>
 
     <div className="py-10">
-      {/* <SeatingChart tableName="Table One" names={seatingChart.table1} />
-      <SeatingChart tableName="Table Two" names={seatingChart.table2} /> */}
 
       
 {seatingChart.map((table, index) => (
