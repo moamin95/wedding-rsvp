@@ -27,7 +27,7 @@ const SeatingChart: React.FC<SeatingChartProps> = ({ tableName, names }) => {
   });
 
   return (
-    <div className="seating-chart">
+    <div className="seating-chart mb-8">
       <h2 className={`${playfair.className} text-center text-2xl lg:text-6xl font-bold mb-6 lowercase underline`}>{tableName}</h2>
       <div className="grid grid-cols-2 gap-4">
         <ul className="list-none text-center">
