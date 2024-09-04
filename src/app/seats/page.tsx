@@ -26,7 +26,7 @@ export default function Seats() {
       "Nasima Sultana",
       "Mohammed Amin",
       "Dalia Newaz",
-      "Shanawaz Patwary",
+      "Shanewaz Patwary",
       "Shah Abu Alam",
       "Fukrullah Khan",
       "Nancy Patwary",
@@ -34,19 +34,21 @@ export default function Seats() {
       "Siddique Alam",
       "Zafor Alam"
     ],
-[
-      "Akbar",
-      "Basith",
-      "Maiz",
-      "Jahid",
-      "Suffer",
-      "Suhan",
-      "Nasim",
-      "Jan",
+
+    [
+      "Riya",
+      "Mahira",
+      "Tabby",
       "Tahmim",
-      "Jamin"
+      "Nasim",
+      "Maisha",
+      "Sanjida",
+      "Ananna",
+      "Arif",
+      "Jan"
     ],
-[
+
+    [
       "Jenita Khan",
       "Zafir Alam",
       "Zayeer Alam",
@@ -59,16 +61,16 @@ export default function Seats() {
       "Mrs. Akhter"
     ],
     [
-      "Riya",
-      "Farhan",
-      "Mahira",
-      "Maisha",
-      "Tabby",
-      "Sanjida",
-      "Ananna",
-      "Arif",
+      "Jamin",
+      "Khaled",
+      "Saif",
+      "Navid",
+      "Kerwin",
+      "Suhan",
       "Nashy",
-      "Khaled"
+      "Ayon",
+      "Fazle",
+      "Shahara"
     ],
 
     [
@@ -85,13 +87,16 @@ export default function Seats() {
     ],
 
     [
-      "Ayon",
-      "Saif",
-      "Fazle",
-      "Navid",
-      "Kerwin",
-      "Shahara",
-      "Sherin"
+      "Sherin",
+      "Farhan",
+      "Basith",
+      "Jahid",
+      "Akbor",
+      "Maiz",
+      "Sufer",
+      "Abul Hussain",
+      "Ziggy Hussain",
+      "Fatema Hussain"
     ],
 
     [
@@ -108,16 +113,16 @@ export default function Seats() {
     ],
 
     [
-      "Ziggy Hussain",
-      "Abul Hussain",
-      "Fatema Hussain",
       "Shamsul Hussain",
       "Julie Hussain",
       "Arfa Hussain",
       "Mahdi Rahim",
       "Manha Rahim",
       "Rahim Ahm",
-      "Titi Rahim"
+      "Titi Rahim",
+      "Maliha Rahim",
+      "Asibul Hoque",
+      "Laisa Hoque"
     ],
 
     [
@@ -134,9 +139,6 @@ export default function Seats() {
     ],
 
     [
-      "Maliha Rahim",
-      "Asibul Hoque",
-      "Laisa Hoque",
       "Mr. Hoque",
       "Mrs. Ayesha",
       "Masum Hafiz",
@@ -144,6 +146,9 @@ export default function Seats() {
       "Shawn Emran",
       "Samiha Emran",
       "Mukit Kabir",
+      "Sakif Chowdhury",
+      "Suiba Chodhury",
+      "Tasneem Chowdhury",
     ],
 
     [
@@ -155,12 +160,10 @@ export default function Seats() {
       "Gabe Alwi",
       "Rezwan Islam",
       "Syed Kabir",
-      "Refa Kabir"
+      "Refa Kabir",
+      "Elena Bhuiyan"
     ],
     [
-      "Sakif Chowdhury",
-      "Suiba Chodhury",
-      "Tasneem Chowdhury",
       "Arnab Hassan",
       "Erin Hassan",
       "Rafid Alam",
@@ -175,8 +178,7 @@ export default function Seats() {
       "Israt Rici",
       "Rejwana Bhuiyan",
       "Tashin Bhuiyan",
-      "Tahani Bhuiyan",
-      "Elena Bhuiyan",
+      "Tahani Bhuiyan"
     ],
 
 

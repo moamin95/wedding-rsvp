@@ -32,14 +32,14 @@ const SeatingChart: React.FC<SeatingChartProps> = ({ tableName, names }) => {
       <div className="grid grid-cols-2 gap-4">
         <ul className="list-none text-center">
           {leftColumn.map((name, index) => (
-            <li key={index} className={`${pangaia.className} mb-1 lg:text-2xl text-end`}>
+            <li key={index} className={`${pangaia.className} mb-1 lg:text-2xl text-end font-bold`}>
               {name}
             </li>
           ))}
         </ul>
         <ul className="list-none text-center border-l border-black pl-4">
           {rightColumn.map((name, index) => (
-            <li key={index} className={`${pangaia.className} mb-1 lg:text-2xl text-start`}>
+            <li key={index} className={`${pangaia.className} mb-1 lg:text-2xl text-start font-bold`}>
               {name}
             </li>
           ))}
